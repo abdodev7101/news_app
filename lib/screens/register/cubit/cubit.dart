@@ -58,17 +58,19 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       await db
           .collection(EndPoints.userCollection)
-          .add({
+      .doc(credential.user!.uid)
+          .set({
             "name": nameController.text,
             'phone': phoneController.text,
             "email": emailController.text,
+        "id": credential.user!.uid
           })
-          .then((v) {
-            v.update({"id": v.id}).then((vv) async {
+          .then((v) async{
+
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
               UserModel user = UserModel(
-                id: v.id,
+                id: credential.user!.uid,
                 email: emailController.text,
                 name: nameController.text,
                 phone: phoneController.text,
@@ -76,7 +78,7 @@ class RegisterCubit extends Cubit<RegisterState> {
               prefs.setString('user', jsonEncode(user.toJson()));
               
               emit(RegisterSuccessState());
-            });
+
           })
           .onError((e, _) {
             print(e);

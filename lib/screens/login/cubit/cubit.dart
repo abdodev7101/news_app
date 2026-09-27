@@ -62,22 +62,43 @@ class LoginCubit extends Cubit<LoginState> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
       String? userPref = await prefs.getString('user');
-      Map<String, dynamic> userData = jsonDecode(userPref!);
-
-      UserModel userDataModel = UserModel.fromJson(userData);
+      Map<String, dynamic>? userData;
+      if(userPref != null)
+       userData = jsonDecode(userPref);
+      UserModel? userDataModel;
+if(userData != null) {
+  userDataModel = UserModel.fromJson(userData);
+      }
       await db
           .collection(EndPoints.userCollection)
-          .doc(userDataModel.id)
+          .doc(FirebaseAuth.instance.currentUser?.uid ?? userDataModel?.id)
           .get()
           .then((v) {
        userModel = UserModel.fromJson(v.data()!);
        print('user Data : ${userModel?.toJson()}');
+       if(userPref==null){
+         prefs.setString('user', jsonEncode(userModel?.toJson()));
+       }
         emit(GetUserSuccessState());
       })
           .onError((e, _) {
         print(e);
         emit(LoginErrorState(e.toString()));
       });
+    } catch (e) {
+      print(e);
+      emit(LoginErrorState(e.toString()));
+    }
+  }
+
+  signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+     await prefs.remove('user');
+      emit(SignOutState());
     } catch (e) {
       print(e);
       emit(LoginErrorState(e.toString()));

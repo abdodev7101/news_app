@@ -16,3 +16,4 @@ class GetUserErrorState extends LoginState {
  GetUserErrorState(this.error);
 }
 class LoginChangePasswordVisibilityState extends LoginState {}
+class SignOutState extends LoginState {}
