@@ -6,13 +6,52 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Assets {
   Assets._();
 
+  static const $AssetsImagesGen images = $AssetsImagesGen();
+}
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  final AssetGenImage busniess = const AssetGenImage(
+    'assets/images/busniess.png',
+  );
+  final AssetGenImage busniessD = const AssetGenImage(
+    'assets/images/busniess_d.png',
+  );
+  final AssetGenImage entertainment = const AssetGenImage(
+    'assets/images/entertainment.png',
+  );
+  final AssetGenImage entertainmentD = const AssetGenImage(
+    'assets/images/entertainment_d.png',
+  );
+  final AssetGenImage general = const AssetGenImage(
+    'assets/images/general.png',
+  );
+  final AssetGenImage generalD = const AssetGenImage(
+    'assets/images/general_d.png',
+  );
+  final AssetGenImage helth = const AssetGenImage('assets/images/helth.png');
+  final AssetGenImage helthD = const AssetGenImage('assets/images/helth_d.png');
+  final AssetGenImage science = const AssetGenImage(
+    'assets/images/science.png',
+  );
+  final AssetGenImage scienceD = const AssetGenImage(
+    'assets/images/science_d.png',
+  );
+  final AssetGenImage sport = const AssetGenImage('assets/images/sport.png');
+  final AssetGenImage sportD = const AssetGenImage('assets/images/sport_d.png');
+  final AssetGenImage technology = const AssetGenImage(
+    'assets/images/technology.png',
+  );
+  final AssetGenImage technologyD = const AssetGenImage(
+    'assets/images/technology_d.png',
+  );
 }
 
 class AssetGenImage {
   const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
-
 
   final Size? size;
   final Set<String> flavors;
@@ -70,15 +109,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   Widget custom({
@@ -95,4 +127,3 @@ class AssetGenImage {
 
   String get keyName => _assetName;
 }
-
