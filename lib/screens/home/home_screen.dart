@@ -4,9 +4,11 @@ import 'package:news_app/screens/home/cubit/cubit.dart';
 import 'package:news_app/screens/home/cubit/state.dart';
 import 'package:news_app/screens/home/widgets/category_widget.dart';
 import 'package:news_app/screens/home/widgets/home_drawer.dart';
+import 'package:news_app/utils/local_service/local_service.dart';
 
 import '../../utils/const/colors.dart';
 import '../../utils/const/styles.dart';
+import '../../utils/local_service/key_string.dart';
 import '../../utils/utils.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -37,7 +39,7 @@ class HomeScreen extends StatelessWidget {
 
             centerTitle: true,
             title: Text(
-              'Home',
+              '${AppLocalizations.of(context)!.translate(keyString.home)}',
               style: AppStyles.bold24(context),
             ),
           ),
@@ -45,7 +47,7 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Text('Good Morning \n Here is Some News For You',
+                Text( '${AppLocalizations.of(context)!.translate(keyString.good_morrning)}',
                   style: AppStyles.boldM24(context),
                 textAlign: TextAlign.center,
                 ),

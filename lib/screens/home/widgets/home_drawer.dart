@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/screens/home/home_screen.dart';
 import 'package:news_app/utils/const/colors.dart';
 import 'package:news_app/utils/const/styles.dart';
 import 'package:news_app/utils/local_service/cubit/local_cubit.dart';
 import 'package:news_app/utils/theme/theme_cubit.dart';
+import 'package:news_app/utils/utils.dart';
 
 import 'home_drawer_widget.dart';
 
@@ -42,7 +44,7 @@ class HomeDrawer extends StatelessWidget {
                     ).copyWith(color: AppColors.white),
                   ),
                   onTap: () {
-                    Navigator.pop(context);
+                    Utils.navigateToAndFinish(HomeScreen(), context);
                   },
                 ),
                 Divider(color: AppColors.white),

@@ -1,5 +1,5 @@
 class EndPoints {
- static const String timeEndPoint = '/v1/timingsByCity/';
- static const String radioUrl = 'https://mp3quran.net/api/v3/radios';
+ static const String baseUrl = 'https://newsapi.org/v2/';
+ static const String getNewsByCategory = 'everything';
  static const String userCollection = 'users';
 }

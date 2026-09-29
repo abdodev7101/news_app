@@ -1,5 +1,6 @@
 const Map<String, String> enTranslations ={
-  "hello": "Hello",
+  "home": "Home",
+  "good_morrning":"Good Morning \n Here is Some News For You"
 
 
 };

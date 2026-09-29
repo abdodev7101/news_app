@@ -1,3 +1,4 @@
 class keyString {
-  static const hello = "hello";
+  static const home = "home";
+  static const good_morrning = "good_morrning";
 }

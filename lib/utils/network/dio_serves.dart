@@ -1,24 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:news_app/utils/network/end_points.dart';
+import 'package:news_app/utils/utils.dart';
 
 abstract class DioServes {
   static final dio = Dio();
 
-  static getTimesData({Map<String, dynamic>? query, data, time}) async {
+  static getNewsData({Map<String, dynamic>? query, data}) async {
+    query?['apiKey']=Utils.apiToken;
+    print('${EndPoints.baseUrl}${EndPoints.getNewsByCategory}');
+    print(query);
     final response = await dio.get(
-      'https://api.aladhan.com${EndPoints.timeEndPoint}$time',
+      '${EndPoints.baseUrl}${EndPoints.getNewsByCategory}',
       queryParameters: query,
       data: data,
     );
+
+    print(response.headers);
+    print(response.data);
     return response;
   }
 
-  static getRadioData({Map<String, dynamic>? query, data}) async {
-    final response = await dio.get(
-      '${EndPoints.radioUrl}',
-      queryParameters: query,
-      data: data,
-    );
-    return response;
-  }
 }

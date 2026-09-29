@@ -38,6 +38,8 @@ dependencies:
   bloc: ^9.2.1
   flutter_bloc: ^9.1.1
   dio:
+  intl:
+  webview_flutter: ^4.14.1
   shared_preferences: ^2.5.5
   get_storage:
   flutter_svg: ^2.0.10

@@ -4,6 +4,9 @@ import 'package:news_app/utils/models/user_model.dart';
 import 'package:news_app/utils/theme/theme_cubit.dart';
 
 abstract class Utils {
+
+  static final String apiToken = '5bcd39ff30714590b7dedef667a098ab';
+
   static navigateTo(screen, context) {
     Navigator.of(
       context,

@@ -4,6 +4,7 @@ import 'package:news_app/utils/models/category_model.dart';
 import 'package:news_app/utils/utils.dart';
 
 import '../../../utils/const/colors.dart';
+import '../../news/news_screen.dart';
 
 class CategoryWidget extends StatelessWidget {
   final CategoryModel category;
@@ -48,7 +49,9 @@ class CategoryWidget extends StatelessWidget {
 
           // "View All" Pill Button with circular arrow icon
           GestureDetector(
-            onTap: category.onTap,
+            onTap: (){
+              Utils.navigateTo(NewsScreen(categoryModel: category,), context);
+            },
             child: Container(
               height: 44,
               padding: isRtlLocal ? const EdgeInsets.only(left: 4, right: 18) : const EdgeInsets.only(left: 18, right: 4),
