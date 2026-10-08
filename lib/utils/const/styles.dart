@@ -17,6 +17,12 @@ abstract class AppStyles {
     fontWeight: FontWeight.bold,
     color: Utils.isDark(context) ? AppColors.white : AppColors.black,
   );
+  // 14pt
+  static TextStyle Reglw14(BuildContext context) => TextStyle(
+    fontSize: 11.0,
+    fontWeight: FontWeight.w300,
+    color: Utils.isDark(context) ? AppColors.white : AppColors.black,
+  );
 
   // 16pt
   static TextStyle bold16(BuildContext context) => TextStyle(

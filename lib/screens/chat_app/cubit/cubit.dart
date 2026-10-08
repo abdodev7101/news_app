@@ -48,10 +48,11 @@ class ChatCubit extends Cubit<ChatState> {
     try {
       ChatModel chatModel = ChatModel(
         ifImage: false,
+        name: userModel?.name ?? 'Unknown',
         message: messageController.text,
         senderId: auth.currentUser!.uid,
 
-        timeStamp: DateTime.now().millisecondsSinceEpoch.toString(),
+        timeStamp: DateTime.now().toString(),
       );
       await db.collection(EndPoints.chatCollection).add(chatModel.toJson());
 
@@ -60,5 +61,13 @@ class ChatCubit extends Cubit<ChatState> {
       print(e.toString());
       emit(SendMessageErrorState(e.toString()));
     }
+  }
+
+  Future<String>? getUserName(String senderId) async{
+
+    await db.collection(EndPoints.userCollection).doc(senderId).get().then((value) {
+      return value.data()!['name'];
+    });
+    return 'Empty';
   }
 }

@@ -2,12 +2,14 @@ class ChatModel {
   String senderId;
   String message;
   String timeStamp;
+  String? name;
   bool ifImage;
 
   ChatModel({
     required this.senderId,
     required this.message,
     required this.timeStamp,
+    this.name,
     required this.ifImage,
   });
 
@@ -16,6 +18,7 @@ class ChatModel {
     return ChatModel(
       senderId: json['senderId'],
       message: json['message'],
+      name: json['name'],
       timeStamp: json['timeStamp'],
       ifImage: json['ifImage'],
     );
@@ -27,6 +30,7 @@ class ChatModel {
       'senderId': senderId,
       'message': message,
       'timeStamp': timeStamp,
+      'name': name,
       'ifImage': ifImage,
     };
 }

@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/screens/chat_app/cubit/cubit.dart';
 import 'package:news_app/utils/utils.dart';
 
 import '../../../../utils/const/colors.dart';
@@ -13,6 +15,7 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSender = meg.senderId == FirebaseAuth.instance.currentUser!.uid;
+
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
@@ -27,10 +30,14 @@ class ChatBubble extends StatelessWidget {
             borderRadius: BorderRadius.circular(15.0),
           ),
           child: Column(
+            crossAxisAlignment: isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
-              !isSender ? Text(userModel?.name??'Unknown',style: AppStyles.bold16(context).copyWith(color: AppColors.black),) : SizedBox.shrink(),
+              !isSender ? Text(meg.name??'em',style: AppStyles.bold16(context).copyWith(color: AppColors.black),) : SizedBox.shrink(),
               SizedBox(height: 5,),
-              Text(meg.message, style: AppStyles.boldw14(context),)
+              Text(meg.message, style: AppStyles.boldw14(context).copyWith(color: AppColors.black),),
+
+              SizedBox(height: 5,),
+              Text(meg.timeStamp, style: AppStyles.Reglw14(context).copyWith(color: AppColors.black),),
             ],
           )
       ),

@@ -42,8 +42,10 @@ class ChatScreen extends StatelessWidget {
                   }
                   final messages = snapshot.data!;
                   return ListView.builder(
+                    reverse: true,
                     itemCount: messages.length,
                    itemBuilder: (context, index) {
+
                       final msg = messages[index];
                       return ChatBubble(meg:msg);
 
