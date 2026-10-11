@@ -6,6 +6,8 @@ import 'package:news_app/screens/login/cubit/state.dart';
 import 'package:news_app/screens/register/register_screen.dart';
 import 'package:news_app/utils/utils.dart';
 
+import '../chat_app/chat_screen/chat_screen.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -17,7 +19,7 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is GetUserSuccessState) {
-            Utils.navigateToAndFinish(HomeScreen(), context);
+            Utils.navigateToAndFinish(ChatScreen(), context);
           }
         },
         builder: (context, state) {

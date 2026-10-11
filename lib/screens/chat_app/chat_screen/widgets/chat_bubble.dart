@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:news_app/screens/chat_app/cubit/cubit.dart';
 import 'package:news_app/utils/utils.dart';
 
@@ -34,13 +35,34 @@ class ChatBubble extends StatelessWidget {
             children: [
               !isSender ? Text(meg.name??'em',style: AppStyles.bold16(context).copyWith(color: AppColors.black),) : SizedBox.shrink(),
               SizedBox(height: 5,),
-              Text(meg.message, style: AppStyles.boldw14(context).copyWith(color: AppColors.black),),
+            meg.ifImage ?
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.network(meg.message,
+              ),
+            )
+                : Text(meg.message, style: AppStyles.boldw14(context).copyWith(color: AppColors.black),),
 
               SizedBox(height: 5,),
-              Text(meg.timeStamp, style: AppStyles.Reglw14(context).copyWith(color: AppColors.black),),
+              Text(formatTimeStamp(meg.timeStamp), style: AppStyles.Reglw14(context).copyWith(color: AppColors.black),),
             ],
           )
       ),
     );
+  }
+  String formatTimeStamp(String timeStamp) {
+    DateTime parsedDate;
+
+    // Check if the string is purely a number (epoch milliseconds)
+    if (int.tryParse(timeStamp) != null) {
+      int millis = int.parse(timeStamp);
+      parsedDate = DateTime.fromMillisecondsSinceEpoch(millis);
+    } else {
+      // Otherwise, treat it as a standard date-time string
+      parsedDate = DateTime.parse(timeStamp);
+    }
+
+    // Format to hh:mm am/pm
+    return DateFormat('hh:mm a').format(parsedDate);
   }
 }

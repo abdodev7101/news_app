@@ -23,11 +23,16 @@ import 'package:news_app/utils/theme/theme_cubit.dart';
 import 'package:news_app/utils/utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: 'https://ewohwvkwtzrirfhjunao.supabase.co',
+    publishableKey: 'sb_publishable_z5X68v4KuFkbh27YYEqN1g_vU8tj-5b',
+  );
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: HydratedStorageDirectory(
         (await getTemporaryDirectory()).path),

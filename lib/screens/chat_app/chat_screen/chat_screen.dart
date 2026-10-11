@@ -84,6 +84,16 @@ class ChatScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 8.0),
                       IconButton(
+                        icon: state is SendMessageLoadingState ? CircularProgressIndicator(color: AppColors.black,) : const Icon(Icons.image),
+                        onPressed: () {
+
+                            cubit.sendImage();
+
+
+                        },
+                      ),
+                      const SizedBox(width: 8.0),
+                      IconButton(
                         icon: const Icon(Icons.send),
                         onPressed: () {
                           if(cubit.formKey.currentState!.validate()) {

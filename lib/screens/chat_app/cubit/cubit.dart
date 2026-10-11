@@ -1,14 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:news_app/screens/chat_app/cubit/state.dart';
 import 'package:news_app/screens/chat_app/model/chat_model.dart';
 import 'package:news_app/screens/login/cubit/cubit.dart';
 import 'package:news_app/utils/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../utils/network/end_points.dart';
 import '../../../utils/utils.dart';
@@ -69,5 +72,56 @@ class ChatCubit extends Cubit<ChatState> {
       return value.data()!['name'];
     });
     return 'Empty';
+  }
+
+
+
+
+
+
+
+  Future<void> sendImage()async{
+    emit(SendMessageLoadingState());
+    final imagePicker = ImagePicker();
+    final XFile? image = await imagePicker.pickImage(source: ImageSource.gallery);
+    if(image == null){
+      return;
+    }
+
+    final user = auth.currentUser;
+    if(user == null)return;
+
+    try{
+      File imageFile = File(image.path);
+      final fileName = '${DateTime.now().microsecondsSinceEpoch}_${user.uid}.jpg';
+
+
+      await Supabase.instance.client.storage.from('chat_images').upload(fileName, imageFile);
+
+final String imageUrl = await Supabase.instance.client.storage.from('chat_images').getPublicUrl(fileName);
+
+
+      ChatModel chatModel = ChatModel(
+        ifImage: true,
+        name: userModel?.name ?? 'Unknown',
+        message: imageUrl,
+        senderId: auth.currentUser!.uid,
+
+        timeStamp: DateTime.now().toString(),
+      );
+      await db.collection(EndPoints.chatCollection).add(chatModel.toJson());
+
+
+      emit(SendMessageSuccessState());
+    }catch(e){
+      print(e);
+      emit(SendMessageErrorState(e.toString()));
+    }
+
+
+
+
+
+
   }
 }
